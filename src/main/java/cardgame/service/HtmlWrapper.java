@@ -4,6 +4,7 @@ import cardgame.schema.Player;
 import cardgame.schema.Rank;
 import cardgame.schema.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Iterator;
@@ -14,8 +15,11 @@ public class HtmlWrapper {
     @Autowired
     GameEventHandler gameEventHandler;
 
+    @Value("${table.player.limit}")
+    private int playerLimit;
+
     public String startGameAndFetchGameResult() {
-        if(gameEventHandler.getPlayers().size() != 4) {
+        if(gameEventHandler.getPlayers().size() != playerLimit) {
 
             User u1 = new User(1,  "p1");
             User u2 = new User(2, "p2");
