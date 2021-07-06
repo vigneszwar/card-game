@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <logger name="cardgame.service.SimpleDealer" level="DEBUG"/>
+    <logger name="cardgame.service.SimpleWinnerStrategy" level="DEBUG"/>
+    <logger name="cardgame.service.Combinations" level="DEBUG"/>
+    <logger name="cardgame.service.GameEventHandler" level="DEBUG"/>
+</configuration>
