@@ -1,12 +1,13 @@
 package cardgame.demo;
 
 
-import cardgame.schema.*;
-import cardgame.schema.Number;
-import cardgame.service.Combinations;
-import cardgame.service.Dealer;
-import cardgame.service.GameEventHandler;
-import cardgame.service.SimpleWinnerStrategy;
+import cardgame.schemas.*;
+import cardgame.schemas.Number;
+import cardgame.services.dealerservices.Combinations;
+import cardgame.services.dealerservices.DealerHelper;
+import cardgame.services.dealerservices.Dealer;
+import cardgame.services.dealerservices.SimpleWinnerStrategy;
+import cardgame.services.dealerservices.SimpleDealerHelper;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -14,39 +15,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
 
 @RunWith(SpringRunner.class)
 @Import(Config.class)
-@ContextConfiguration(classes = {cardgame.schema.Deck.class,
-                                 cardgame.service.Combinations.class,
-                                 cardgame.service.SimpleWinnerStrategy.class,
-                                 cardgame.service.Dealer.class})
-@ComponentScan(basePackages = {"cardgame", "cardgame.service", "cardgame.schema"})
+@ContextConfiguration(classes = {cardgame.schemas.Deck.class,
+                                 Combinations.class,
+                                 SimpleWinnerStrategy.class,
+                                 DealerHelper.class})
+@ComponentScan(basePackages = {"cardgame", "cardgame.services", "cardgame.schemas"})
+@Profile("test")
 @SpringBootTest
 class DemoApplicationTests {
     @Autowired
     Combinations combinations;
 
-    @Autowired
-    Dealer dealer;
 
-    @Autowired
-    GameEventHandler gameEventHandler;
+    DealerHelper dealerHelper = new SimpleDealerHelper();
+
+
+    Dealer dealer = new Dealer();
 
 
     @Autowired
     SimpleWinnerStrategy simpleWinnerStrategy;
-
-
-
 
     @Test
     void contextLoads() {
@@ -177,8 +175,8 @@ class DemoApplicationTests {
         player.getCards().add(new Card(Suit.CLUB, Number.EIGHT));
         player.getCards().add(new Card(Suit.HEART, Number.EIGHT));
         player.getCards().add(new Card(Suit.DIAMOND, Number.EIGHT));
-        Rank rank = simpleWinnerStrategy.getBestCombination(player);
-        Assert.assertEquals(rank.getCards()[0].getNumber(), Number.EIGHT);
+        simpleWinnerStrategy.computeBestCombination(player);
+        Assert.assertEquals(player.getRank().getCards()[0].getNumber(), Number.EIGHT);
     }
 
     @Test
@@ -187,8 +185,8 @@ class DemoApplicationTests {
         player.getCards().add(new Card(Suit.CLUB, Number.NINE));
         player.getCards().add(new Card(Suit.HEART, Number.TEN));
         player.getCards().add(new Card(Suit.DIAMOND, Number.EIGHT));
-        Rank rank = simpleWinnerStrategy.getBestCombination(player);
-        Assert.assertEquals(rank.getCards()[0].getNumber(), Number.TEN);
+        simpleWinnerStrategy.computeBestCombination(player);
+        Assert.assertEquals(player.getRank().getCards()[0].getNumber(), Number.TEN);
     }
 
 
@@ -199,34 +197,15 @@ class DemoApplicationTests {
         player.getCards().add(new Card(Suit.CLUB, Number.EIGHT));
         player.getCards().add(new Card(Suit.HEART, Number.TWO));
         player.getCards().add(new Card(Suit.DIAMOND, Number.ACE));
-        Rank rank = simpleWinnerStrategy.getBestCombination(player);
-        Assert.assertEquals(rank.getCards()[0].getNumber(), Number.EIGHT);
-    }
-
-    @Test
-    void isTieBreakerWorkingAsExpected() {
-        Player player1 = new Player(new User(1, "p1"), 3);
-        player1.getCards().add(new Card(Suit.CLUB, Number.EIGHT));
-        player1.getCards().add(new Card(Suit.HEART, Number.TWO));
-        player1.getCards().add(new Card(Suit.DIAMOND, Number.ACE));
-        Player player2 = new Player(new User(2, "p2"), 3);
-        player2.getCards().add(new Card(Suit.HEART, Number.EIGHT));
-        player2.getCards().add(new Card(Suit.SPADE, Number.FIVE));
-        player2.getCards().add(new Card(Suit.HEART, Number.ACE));
-        List<Player> players = Arrays.asList(player1, player2);
-
+        simpleWinnerStrategy.computeBestCombination(player);
+        Assert.assertEquals(player.getRank().getCards()[0].getNumber(), Number.EIGHT);
     }
 
 
-    @Test
-    void testGameHandler() {
-        gameEventHandler.addPlayer(new User(1, "p1"));
-        gameEventHandler.addPlayer(new User(2, "p2"));
-        gameEventHandler.addPlayer(new User(3, "p3"));
-        gameEventHandler.addPlayer(new User(4, "p4"));
-        gameEventHandler.initializeGame();
-        //Assert.assertNotNull(gameHandler.());
-    }
+
+
+
+
 
 
     }
