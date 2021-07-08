@@ -36,26 +36,25 @@ Option 2:
 - Select Run 'DemoApplication'
 
 How Play the Card Game:
+- Local players
+  - Go to any Browser
+  - Enter localhost:8080/simple-card-game/v1
+  - The game starts with four players in the background and the game result is shown immediately
 
-Local players
-- Go to any Browser
-- Enter localhost:8080/simple-card-game/v1
-- The game starts with four players in the background and the game result is shown immediately
-
-Multiplayer (Better Experience if you host this in a remote server)
+- Multiplayer (Better Experience if you host this in a remote server)
 (Game Simplification In Progress. Wait for next update)
-- Use PostMan or similar tool to register a User.
-- POST localhost:8080/users/ 
-  - Request Body { "name": "yourname" } 
-- Repeat the same for as many users you want.
-- To see user id of each user. Enter the URL localhost:8080/users in the browser.
-- To simulate multiplayer. Do the following
-  - For each User
-    - Enter the Home page of each User by entering the URL localhost:8080/home?userId=userId
-    - click on join button for each user. 
-    - This will put user in the user waiting pool.
-- If the waiting pool size is greater than 3, it will pick four users at a time and assign those users to a table and start the game.
-- So, When you clicked on join for more than four users, click on refresh button for each waiting player to see the result of the game.
+  - Use PostMan or similar tool to register a User.
+  - POST localhost:8080/users/ 
+    - Request Body { "name": "yourname" } 
+  - Repeat the same for as many users you want.
+  - To see user id of each user. Enter the URL localhost:8080/users in the browser.
+  - To simulate multiplayer. Do the following
+    - For each User
+      - Enter the Home page of each User by entering the URL localhost:8080/home?userId=userId
+      - click on join button for each user. 
+      - This will put user in the user waiting pool.
+  - If the waiting pool size is greater than 3, it will pick four users at a time and assign those users to a table and start the game.
+  - So, When you clicked on join for more than four users, click on refresh button for each waiting player to see the result of the game.
 
 TroubleShoot:
 - If you face port connectivity error
