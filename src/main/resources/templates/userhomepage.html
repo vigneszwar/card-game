@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Card Game Home</title>
+</head>
+<body>
+<h1>
+    Welcome to Card Game
+</h1>
+<h3>
+    Click on Join Button below to join a Table
+</h3>
+<form  th:action="@{/join/} + ${userid}" method="post">
+    <input type="submit" value="Join"/>
+</form>
+
+</body>
+</html>

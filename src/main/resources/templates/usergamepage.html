@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Card Game</title>
+</head>
+<body>
+<h3>
+    Card Game
+</h3>
+<div th:if="${userView.getMatchStatus() == 'State.OVER'}">
+    <h4>
+        Your Cards
+    </h4>
+    <div th:each="card, iterstat: ${userView.getCards()}">
+        <p th:if="${iterstat.index} < ${cardLimit}" th:text="${card.getSuit().name() + ' ' + card.getNumber().name()}"> </p>
+    </div>
+    <h4>
+        Your Rank
+    </h4>
+
+        <p style="color:green" th:text="${userView.getUserRank().getRankValueEnum().name()} + ' of ' + ${userView.getUserRank().getCards()[0].getNumber()} "></p>
+    <h4> Opponents </h4>
+    <div th:each="opponent, iterstat: ${userView.getOpponents()}">
+        <h3 th:text="Name +${opponent.getUser().getName()}" th:id="|td${iterstat.index}|"></h3>
+        <p> Cards </p>
+        <div th:each="card, iterstat: ${opponent.getCards()}">
+            <p th:if="${iterstat.index} < ${cardLimit}" th:text="${card.getSuit().name() + ' ' + card.getNumber().name()}"></p>
+        </div>
+        <p style="color:red" th:unless="${opponent.getRank().getRankValueEnum().name() == 'SEQUENCE'}" th:text="'Rank '+ ${opponent.getRank().getRankValueEnum().name()} + ' of ' + ${opponent.getRank().getCards()[0].getNumber()}">
+        <p style="color:red" th:if="${opponent.getRank().getRankValueEnum().name() == 'SEQUENCE'}" th:text="'Rank '+ ${opponent.getRank().getRankValueEnum().name()}">
+
+        </p>
+    </div>
+
+    <div th:if="${userView.getAllShortListedPlayers().size() > 1}">
+        <div th:each="shortListedPlayers, iterstat: ${userView.getAllShortListedPlayers()}">
+            <div th:unless="${iterstat.last}">
+                <h4> Tie Breaker Happened between these players. Drawing Card from Deck </h4>
+                 <span th:each="player, iterstat2: ${shortListedPlayers}">
+                     <span th:text="${player.getUser().getName()}"></span>
+                     <span th:text="${player.getCards().get(__${cardLimit}__+__${iterstat.index}__).getSuit()} +' '+ ${player.getCards().get(__${cardLimit}__+__${iterstat.index}__).getNumber()}"></span>
+                 </span>
+            </div>
+        </div>
+
+    </div>
+    <h4 th:if="${userView.getWinners().size() > 1}"> Winners are</h4>
+    <h4 th:unless="${userView.getWinners().size() > 1}"> Winner is</h4>
+    <div th:each="winner, iterstat: ${userView.getWinners()}">
+        <p th:text="${winner.getUser().getName()}"/>
+    </div>
+</div>
+<div th:if="${userView.getMatchStatus() == 'State.PENDING'}">
+    <h3>Please sit Tight</h3>
+    <h3>Waiting for other players to join the Table</h3>
+    <h4>Click Refresh</h4>
+    <button onClick="window.location.reload();">Refresh</button>
+</div>
+
+
+</body>
+</html>
