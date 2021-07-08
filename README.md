@@ -22,6 +22,7 @@ deck until a winner is found.
 
 
 How to Download run the Game:
+
 Option 1:
 -  Download the target/cardgame-0.1.0.jar
 -  In your command line run this command - java -jar [Path of downloaded Jar]/cardgame-0.1.0.jar
