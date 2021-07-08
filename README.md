@@ -37,12 +37,12 @@ Option 2:
 
 How Play the Card Game:
 
-Option 1: Local players
+Local players
 - Go to any Browser
 - Enter localhost:8080/simple-card-game/v1
 - The game starts with four players in the background and the game result is shown immediately
 
-Option 2: Multiplayer (Better Experience if you host this in a remote server)
+Multiplayer (Better Experience if you host this in a remote server)
 (Game Simplification In Progress. Wait for next update)
 - Use PostMan or similar tool to register a User.
 - POST localhost:8080/users/ 
