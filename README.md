@@ -21,6 +21,9 @@ deck until a winner is found.
 - the suit (spades/hearts etc...), does not matter.
 
 
+System Requirements:
+- Java Version 1.8 or above
+
 How to Download run the Game:
 
 Option 1:
