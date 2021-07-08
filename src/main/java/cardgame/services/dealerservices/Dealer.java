@@ -102,6 +102,7 @@ public class Dealer {
             dealerHelper.getTable().setWinner(winners.get(0));
         }
         dealerHelper.getTable().setGameStatus(State.OVER);
+        logger.info("Game Over");
     }
 
 }

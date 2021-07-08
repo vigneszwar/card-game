@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("!test")
 public class GameSchedulerService implements CommandLineRunner {
     Logger logger = LoggerFactory.getLogger(GameSchedulerService.class);
     final UserPoolHandler userPoolHandler;

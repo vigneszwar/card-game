@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-@Profile("!test")
 public class DataInitializer implements CommandLineRunner {
     Logger logger = LoggerFactory.getLogger(DataInitializer.class);
     @Autowired
